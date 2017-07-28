@@ -11,9 +11,17 @@ exports.signup = (req, res, next) => {
     if (existingUser) {
       return res.status(422).send({ error: 'Email is in use '});
     }
+
+    // If a user with email does not exist, create and save user record
+    const user = new User({ email, password });
+
+    user.save((err) => {
+      if (err) { return next(err); }
+
+      // Respond to request
+      res.json(user);
+    });
   });
 
-  // If a user with email does not exist, create and save user record
 
-  // Respond to request
 };
