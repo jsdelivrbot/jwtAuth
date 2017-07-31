@@ -1,3 +1,5 @@
+import { AUTH_USER, UNAUTH_USER } from '../actions/types';
+
 export default (state = {}, action) => {
   Object.freeze(state);
   switch (action.type) {
