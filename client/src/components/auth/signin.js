@@ -2,11 +2,12 @@ import React, { Component } from 'react';
 import { Field, reduxForm } from 'redux-form';
 import { connect } from 'react-redux';
 import * as actions from '../../actions';
+import { withRouter } from 'react-router-dom';
 
 class Signin extends Component {
   handleFormSubmit({ email, password }) {
-    console.log(email, password);
-    this.props.signinUser({ email, password });
+    this.props.signinUser({ email, password })
+      .then(() => this.props.history.push('/feature'));
   }
 
   render() {
@@ -36,5 +37,6 @@ class Signin extends Component {
   }
 }
 
-const SigninContainer = connect(null, actions)(Signin);
-export default reduxForm({ form: 'signin' })(SigninContainer);
+export default reduxForm({ form: 'signin' })(
+  connect(null, actions)(
+    withRouter(Signin)));
