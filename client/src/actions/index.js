@@ -1,5 +1,9 @@
 import axios from 'axios';
-import { AUTH_USER, UNAUTH_USER } from './types';
+import {
+  AUTH_USER,
+  UNAUTH_USER,
+  AUTH_ERROR
+} from './types';
 
 const API_URL ='http://localhost:3090';
 
@@ -10,6 +14,11 @@ export const signinUser = ({ email, password }) => dispatch => (
       window.localStorage.setItem('token', res.data.token);
     })
     .catch(() => {
-
+      dispatch(authError('Bad Login Info'));
     })
 );
+
+export const authError = error => ({
+  type: AUTH_ERROR,
+  payload: error
+});
