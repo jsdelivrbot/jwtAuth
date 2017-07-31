@@ -17,6 +17,7 @@ const localLogin = new LocalStrategy(localOptions, (email, password, done) => {
     if (!user) { return done(null, false); }
 
     // use bcrypt to compare passwords
+    
   });
 });
 
