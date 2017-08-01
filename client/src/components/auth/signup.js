@@ -25,7 +25,6 @@ class Signup extends Component {
 
     return(
       <form onSubmit={handleSubmit(this.handleFormSubmit.bind(this))}>
-        signup
         <fieldset className='form-group'>
           <label>Email:</label>
           <Field
@@ -42,8 +41,16 @@ class Signup extends Component {
             component="input"
             className='form-control' />
         </fieldset>
+        <fieldset className='form-group'>
+          <label>Confirm Password:</label>
+          <Field
+            name="passwordConfirm"
+            type="password"
+            component="input"
+            className='form-control' />
+        </fieldset>
         {this.renderError()}
-        <button action='submit' className='btn btn-primary'>Sign in</button>
+        <button action='submit' className='btn btn-primary'>Sign Up</button>
       </form>
     );
   }

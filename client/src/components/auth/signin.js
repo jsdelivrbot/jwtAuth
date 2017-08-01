@@ -42,7 +42,7 @@ class Signin extends Component {
             className='form-control' />
         </fieldset>
         {this.renderError()}
-        <button action='submit' className='btn btn-primary'>Sign in</button>
+        <button action='submit' className='btn btn-primary'>Sign In</button>
       </form>
     );
   }
