@@ -4,10 +4,41 @@ import { connect } from 'react-redux';
 import * as actions from '../../actions';
 import { withRouter } from 'react-router-dom';
 
+const fields = [
+  {
+    name: 'email',
+    type: 'email',
+    label: 'Email'
+  },
+  {
+    name: 'password',
+    type: 'password',
+    label: 'Password'
+  },
+  {
+    name: 'passwordConfirm',
+    type: 'password',
+    label: 'Confirm Password'
+  }
+];
+
 class Signup extends Component {
   handleFormSubmit({ email, password }) {
     this.props.signupUser({ email, password })
       .then(() => this.props.history.push('/feature'));
+  }
+
+  renderFields() {
+    return fields.map(field => (
+      <fieldset className='form-group' key={field.name}>
+        <label>{field.label}:</label>
+        <Field
+          name={field.name}
+          type={field.type}
+          component="input"
+          className='form-control' />
+      </fieldset>
+    ));
   }
 
   renderError() {
@@ -25,30 +56,7 @@ class Signup extends Component {
 
     return(
       <form onSubmit={handleSubmit(this.handleFormSubmit.bind(this))}>
-        <fieldset className='form-group'>
-          <label>Email:</label>
-          <Field
-            name="email"
-            type="email"
-            component="input"
-            className='form-control' />
-        </fieldset>
-        <fieldset className='form-group'>
-          <label>Password:</label>
-          <Field
-            name="password"
-            type="password"
-            component="input"
-            className='form-control' />
-        </fieldset>
-        <fieldset className='form-group'>
-          <label>Confirm Password:</label>
-          <Field
-            name="passwordConfirm"
-            type="password"
-            component="input"
-            className='form-control' />
-        </fieldset>
+        {this.renderFields()}
         {this.renderError()}
         <button action='submit' className='btn btn-primary'>Sign Up</button>
       </form>
