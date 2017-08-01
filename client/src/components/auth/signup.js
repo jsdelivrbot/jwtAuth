@@ -29,14 +29,19 @@ class Signup extends Component {
   }
 
   renderFields() {
+    const renderInput =  ({ input, meta }) => <div>
+        <input {...input} className='form-control'/>
+        {meta.touched &&
+         meta.error &&
+         <div className="error">{meta.error}</div>}
+      </div>;
+
     return fields.map(field => (
       <fieldset className='form-group' key={field.name}>
         <label>{field.label}:</label>
         <Field
           name={field.name}
-          type={field.type}
-          component="input"
-          className='form-control' />
+          component={renderInput} />
       </fieldset>
     ));
   }
@@ -64,10 +69,21 @@ class Signup extends Component {
   }
 }
 
+const validate = formProps => {
+  const errors = {};
+  console.log(formProps)
+  if (formProps.password !== formProps.passwordConfirm) {
+    errors.password = 'Passwords must match!';
+  }
+
+  console.log(errors);
+  return errors;
+};
+
 const mapStateToProps = state => ({
   errorMessage: state.auth.error
 });
 
-export default reduxForm({ form: 'signup' })(
+export default reduxForm({ form: 'signup', validate })(
   connect(mapStateToProps, actions)(
     withRouter(Signup)));
