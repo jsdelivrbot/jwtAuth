@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Route } from 'react-router-dom';
 import Header from './header';
 import Signin from './auth/signin';
+import Signout from './auth/signout';
 
 export default class App extends Component {
   render() {
@@ -9,6 +10,7 @@ export default class App extends Component {
       <div>
         <Header />
         <Route path='/signin' component={Signin} />
+        <Route path='/signout' component={Signout} />
       </div>
     );
   }
