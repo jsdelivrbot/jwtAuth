@@ -23,3 +23,9 @@ export const authError = error => ({
   type: AUTH_ERROR,
   payload: error
 });
+
+export const signoutUser = () => {
+  window.localStorage.removeItem('token');
+  
+  return { type: UNAUTH_USER };
+};
