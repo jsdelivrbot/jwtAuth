@@ -10,6 +10,16 @@ class Signin extends Component {
       .then(() => this.props.history.push('/feature'));
   }
 
+  renderError() {
+    if (this.props.errorMessage) {
+      return (
+        <div className='alert alert-danger'>
+          <strong>Oops!</strong> {this.props.errorMessage}
+        </div>
+      );
+    }
+  }
+
   render() {
     const { handleSubmit } = this.props;
 
@@ -31,12 +41,17 @@ class Signin extends Component {
             component="input"
             className='form-control' />
         </fieldset>
+        {this.renderError()}
         <button action='submit' className='btn btn-primary'>Sign in</button>
       </form>
     );
   }
 }
 
+const mapStateToProps = state => ({
+  errorMessage: state.auth.error
+});
+
 export default reduxForm({ form: 'signin' })(
-  connect(null, actions)(
+  connect(mapStateToProps, actions)(
     withRouter(Signin)));

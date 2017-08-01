@@ -15,6 +15,7 @@ export const signinUser = ({ email, password }) => dispatch => (
     })
     .catch(() => {
       dispatch(authError('Bad Login Info'));
+      throw new Error('Bad Login Info');
     })
 );
 
