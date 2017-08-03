@@ -7,16 +7,19 @@ import {
 
 const API_URL ='http://localhost:3090';
 
-const createAuthAction = route => ({ email, password }) => dispatch => (
+const createAuthAction = (route, errMsg) => (
+  ({ email, password }) => dispatch => (
   axios.post(`${API_URL}/${route}`, { email, password })
     .then(res => {
       dispatch({ type: AUTH_USER });
       window.localStorage.setItem('token', res.data.token);
     })
-    .catch(() => {
-      dispatch(authError('Bad Login Info'));
-      throw new Error('Bad Login Info');
+    .catch(res => {
+      errMsg = (res.data && res.data.error) || errMsg;
+      dispatch(authError(errMsg));
+      throw new Error(errMsg);
     })
+  )
 );
 
 export const authError = error => ({
@@ -24,7 +27,7 @@ export const authError = error => ({
   payload: error
 });
 
-export const signinUser = createAuthAction('signin');
+export const signinUser = createAuthAction('signin', 'Bad Login Info');
 export const signupUser = createAuthAction('signup');
 
 export const signoutUser = () => {
