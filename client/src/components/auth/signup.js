@@ -29,8 +29,8 @@ class Signup extends Component {
   }
 
   renderFields() {
-    const renderInput =  ({ input, meta }) => <div>
-        <input {...input} className='form-control'/>
+    const renderInput = type => ({ input, meta }) => <div>
+        <input {...input} className='form-control' type={type} />
         {meta.touched &&
          meta.error &&
          <div className="error">{meta.error}</div>}
@@ -41,7 +41,7 @@ class Signup extends Component {
         <label>{field.label}:</label>
         <Field
           name={field.name}
-          component={renderInput} />
+          component={renderInput(field.type)} />
       </fieldset>
     ));
   }
@@ -71,7 +71,7 @@ class Signup extends Component {
 
 const validate = formProps => {
   const errors = {};
-  
+
   if (!formProps.email) {
     errors.email = 'Please enter an email';
   }

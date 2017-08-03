@@ -7,8 +7,8 @@ import {
 
 const API_URL ='http://localhost:3090';
 
-export const signinUser = ({ email, password }) => dispatch => (
-  axios.post(`${API_URL}/signin`, { email, password })
+const createAuthAction = route => ({ email, password }) => dispatch => (
+  axios.post(`${API_URL}/${route}`, { email, password })
     .then(res => {
       dispatch({ type: AUTH_USER });
       window.localStorage.setItem('token', res.data.token);
@@ -24,8 +24,11 @@ export const authError = error => ({
   payload: error
 });
 
+export const signinUser = createAuthAction('signin');
+export const signupUser = createAuthAction('signup');
+
 export const signoutUser = () => {
   window.localStorage.removeItem('token');
-  
+
   return { type: UNAUTH_USER };
 };
