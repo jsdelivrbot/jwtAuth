@@ -15,6 +15,7 @@ const createAuthAction = (route, errMsg) => (
       window.localStorage.setItem('token', response.data.token);
     })
     .catch(({ response }) => {
+      // axios saves response as error.response
       errMsg = (response.data && response.data.error) || errMsg;
       dispatch(authError(errMsg));
       throw new Error(errMsg);
@@ -35,3 +36,10 @@ export const signoutUser = () => {
 
   return { type: UNAUTH_USER };
 };
+
+export const fetchMessage = () => dispatch => (
+  axios.get(API_URL, {
+    headers: { authorization: window.localStorage.getItem('token') }
+  })
+    .then(console.log)
+);
