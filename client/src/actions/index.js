@@ -10,12 +10,12 @@ const API_URL ='http://localhost:3090';
 const createAuthAction = (route, errMsg) => (
   ({ email, password }) => dispatch => (
   axios.post(`${API_URL}/${route}`, { email, password })
-    .then(res => {
+    .then(response => {
       dispatch({ type: AUTH_USER });
-      window.localStorage.setItem('token', res.data.token);
+      window.localStorage.setItem('token', response.data.token);
     })
-    .catch(res => {
-      errMsg = (res.data && res.data.error) || errMsg;
+    .catch(({ response }) => {
+      errMsg = (response.data && response.data.error) || errMsg;
       dispatch(authError(errMsg));
       throw new Error(errMsg);
     })
