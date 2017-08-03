@@ -23,6 +23,10 @@ const fields = [
 ];
 
 class Signup extends Component {
+  componentWillUnmount() {
+    this.props.authError(null);
+  }
+
   handleFormSubmit({ email, password }) {
     this.props.signupUser({ email, password })
       .then(() => this.props.history.push('/feature'));

@@ -5,6 +5,10 @@ import * as actions from '../../actions';
 import { withRouter } from 'react-router-dom';
 
 class Signin extends Component {
+  componentWillUnmount() {
+    this.props.authError(null);
+  }
+
   handleFormSubmit({ email, password }) {
     this.props.signinUser({ email, password })
       .then(() => this.props.history.push('/feature'));
