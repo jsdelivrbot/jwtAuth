@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Route } from 'react-router-dom';
 import Header from './header';
+import Welcome from './welcome';
 import Signin from './auth/signin';
 import Signout from './auth/signout';
 import Signup from './auth/signup';
@@ -12,6 +13,7 @@ export default class App extends Component {
     return (
       <div>
         <Header />
+        <Route exact path='/' component={Welcome} />
         <Route path='/signin' component={Signin} />
         <Route path='/signup' component={Signup} />
         <Route path='/signout' component={Signout} />
