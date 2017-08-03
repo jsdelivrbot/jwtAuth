@@ -41,5 +41,4 @@ export const fetchMessage = () => dispatch => (
   axios.get(API_URL, {
     headers: { authorization: window.localStorage.getItem('token') }
   })
-    .then(console.log)
 );
