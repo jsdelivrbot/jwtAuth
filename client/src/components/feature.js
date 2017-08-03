@@ -5,20 +5,17 @@ import * as actions from '../actions';
 class Feature extends Component {
   constructor(props) {
     super(props);
-    this.state = { msg: '' };
+    this.state = { message: '' };
   }
 
   componentWillMount() {
     this.props.fetchMessage()
-      .then(res => this.setState({ msg: res.data.message }));
+      .then(({ data: { message }}) => this.setState({ message }));
   }
 
   render() {
     return (
-      <div>
-        <h5>Super Cool Feature</h5>
-        <strong>Message: </strong>{this.state.msg}
-      </div>
+      <div>{this.state.message}</div>
     );
   }
 }
